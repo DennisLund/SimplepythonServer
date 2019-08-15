@@ -47,9 +47,9 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 
 
   def misppull(dataType):
-    headers={'Authorization':'hwwcBfywoEUHQC8Mf097y8DXqWE1k3mUXLIbdLsZ','Accept':'application/json','Content-type':'application/json'}
+    headers={'Authorization':'<YOUR MISP API-KEY>','Accept':'application/json','Content-type':'application/json'}
     data=json.dumps({"returnFormat":"json","type":dataType,"tags":"Feed-%","to_ids":"yes","includeEventTags":"yes","includeContext":"yes"})
-    response = requests.post('https://192.168.0.13/attributes/restSearch',headers=headers,data=data,verify=False)
+    response = requests.post('https://<YOUR MISP ADDRESS>/attributes/restSearch',headers=headers,data=data,verify=False)
     data=response.json()
     list=''
     for item in data['response']['Attribute']:
@@ -63,7 +63,7 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 def run():
   print('starting server...')
 
-  server_address=('127.0.0.1',8080)
+  server_address=('0.0.0.0',8080)
   httpd=HTTPServer(server_address, testHTTPServer_RequestHandler)
   print('running server...')
   httpd.serve_forever()
